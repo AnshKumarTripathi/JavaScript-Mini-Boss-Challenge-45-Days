@@ -7,6 +7,11 @@ const list = document.getElementById("list");
 const form = document.getElementById("form");
 const text = document.getElementById("text");
 const amount = document.getElementById("amount");
+const welcomeForm = document.getElementById("welcome-form");
+const welcomeContainer = document.getElementById("welcome-container");
+const budgetContainer = document.getElementById("budget-container");
+const username = document.getElementById("username");
+const userNameDisplay = document.getElementById("user-name");
 
 let transactions = [];
 
@@ -91,12 +96,32 @@ function updateLocalStorage() {
 
 // Initialize App
 function init() {
-  list.innerHTML = "";
-  transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-  transactions.forEach(addTransactionDOM);
-  updateValues();
+  const storedName = localStorage.getItem("username");
+  if (storedName) {
+    userNameDisplay.innerText = `Welcome, ${storedName}`;
+    welcomeContainer.style.display = "none";
+    budgetContainer.style.display = "block";
+    list.innerHTML = "";
+    transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+    transactions.forEach(addTransactionDOM);
+    updateValues();
+  } else {
+    welcomeContainer.style.display = "block";
+    budgetContainer.style.display = "none";
+  }
 }
 
-init();
+// Store Username
+function storeUsername(e) {
+  e.preventDefault();
+  if (username.value.trim() !== "") {
+    localStorage.setItem("username", username.value);
+    userNameDisplay.innerText = `Welcome, ${username.value}`;
+    welcomeContainer.style.display = "none";
+    budgetContainer.style.display = "block";
+    init();
+  }
+}
 
+welcomeForm.addEventListener("submit", storeUsername);
 form.addEventListener("submit", addTransaction);

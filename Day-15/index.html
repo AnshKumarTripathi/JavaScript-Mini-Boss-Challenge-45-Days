@@ -9,8 +9,22 @@
 </head>
 
 <body>
-  <div class="container">
-    <h1>Personal Budget Tracker</h1>
+  <div id="welcome-container" class="container">
+    <h1>Welcome</h1>
+    <form id="welcome-form">
+      <div class="form-control">
+        <label for="username">Enter Your Name</label>
+        <input type="text" id="username" placeholder="Your name...">
+      </div>
+      <button class="btn" type="submit">Enter</button>
+    </form>
+  </div>
+
+  <div id="budget-container" class="container" style="display:none;">
+    <div class="header">
+      <p id="user-name"></p>
+      <h1>Personal Budget Tracker</h1>
+    </div>
     <div class="balance">
       <h2>Your Balance</h2>
       <h3 id="balance">$0.00</h3>
